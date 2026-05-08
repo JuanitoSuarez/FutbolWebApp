@@ -1,5 +1,5 @@
-﻿// D:\FutbolWebApp\AppSrc\SelectEntrenador.wo
-// Entrenador
+﻿// D:\FutbolWebApp\AppSrc\SelectJugador.wo
+// Jugador
 //
 
 Use cWebView.pkg
@@ -8,14 +8,14 @@ Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebColumnButton.pkg
 Use cWebColumn.pkg
-Use ZoomEntrenador.wo
+Use ZoomJugador.wo
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
-Use centrenadorDataDictionary.dd
+Use cjugadorDataDictionary.dd
 
-Object oSelectEntrenador is a cWebView
-    Set psCaption to "Entrenador"
+Object oSelectJugador is a cWebView
+    Set psCaption to "Jugador"
     Set peWebViewStyle to wvsDrilldown
     Set peViewType to vtSelect
     Set piColumnCount to 12
@@ -29,12 +29,12 @@ Object oSelectEntrenador is a cWebView
         Set DDO_Server To oliga_DD
     End_Object 
 
-    Object oentrenador_DD is a centrenadorDataDictionary
+    Object ojugador_DD is a cjugadorDataDictionary
         Set DDO_Server To oequipo_DD
     End_Object 
 
-    Set Main_DD To oentrenador_DD
-    Set Server  To oentrenador_DD
+    Set Main_DD To ojugador_DD
+    Set Server  To ojugador_DD
 
 
     Object oList is a cWebList
@@ -45,16 +45,34 @@ Object oSelectEntrenador is a cWebView
         Set pbShowHeader to False
         Set piSortColumn to 0
 
-        Object oentrenadorNombre is a cWebColumn
-            Entry_Item entrenador.Nombre
-            Set psCaption to "entrenador.Nombre"
+        Object ojugadorNombre is a cWebColumn
+            Entry_Item jugador.Nombre
+            Set psCaption to "jugador.Nombre"
             Set piWidth to 600
         End_Object 
 
-        Object oentrenadorApellido is a cWebColumn
-            Entry_Item entrenador.Apellido
-            Set psCaption to "entrenador.Apellido"
+        Object ojugadorApellido is a cWebColumn
+            Entry_Item jugador.Apellido
+            Set psCaption to "jugador.Apellido"
             Set piWidth to 600
+        End_Object 
+
+        Object oequipoID is a cWebColumn
+            Entry_Item equipo.ID
+            Set psCaption to "jugador.EquipoID"
+            Set piWidth to 100
+        End_Object
+        
+        Object oequipoNombre is a cWebColumn
+            Entry_Item equipo.Nombre
+            Set psCaption to "equipo.Nombre"
+            Set piWidth to 600
+        End_Object 
+
+        Object ojugadorNacionalidad is a cWebColumn
+            Entry_Item jugador.Nacionalidad
+            Set psCaption to "jugador.Nacionalidad"
+            Set piWidth to 500
         End_Object 
 
         Object oDetailButton is a cWebColumnButton
@@ -66,7 +84,7 @@ Object oSelectEntrenador is a cWebView
             Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
             Set peAlign to alignRight
 
-            WebRegisterPath ntNavigateForward oZoomEntrenador
+            WebRegisterPath ntNavigateForward oZoomJugador
 
             Procedure OnClick
                 Send NavigatePath
@@ -78,8 +96,7 @@ Object oSelectEntrenador is a cWebView
 
         End_Object 
 
-// ToDo: Fill in the from-parent child Select view object name for navigate forward
-        WebRegisterPath ntNavigateForward oZoomEntrenador
+        WebRegisterPath ntNavigateForward oZoomJugador
 
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
@@ -88,7 +105,7 @@ Object oSelectEntrenador is a cWebView
             Case Begin
                 Case (NavigateData.eNavigateType = nfFromParent)
 
-                    Send NavigateForward of oZoomEntrenador Self
+                    Send NavigateForward of oZoomJugador Self
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromChild)
@@ -100,8 +117,7 @@ Object oSelectEntrenador is a cWebView
                     Case Break
 
                 Case Else // must be nfUndefined
-
-                    Send NavigateForward of oZoomEntrenador Self
+                    Send NavigateForward of oZoomJugador Self
 
             Case End
         End_Procedure
@@ -128,7 +144,7 @@ Object oSelectEntrenador is a cWebView
             Set psCSSClass to "WebClearMenuItem"
             Set psCaption to "New"
 
-            WebRegisterPath ntNavigateForward oZoomEntrenador
+            WebRegisterPath ntNavigateForward oZoomJugador
 
             Procedure OnClick
                 Send NavigatePath
