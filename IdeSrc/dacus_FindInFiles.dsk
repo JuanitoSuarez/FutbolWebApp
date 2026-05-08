@@ -1,0 +1,14 @@
+[Header]
+Mask=*.src;*.vw;*.sl;*.dg;*.rv;*.bp;*.pkg;*.wo;*.dd;*.inc;*.tpl;*.dfo;*.asp;*.asa;*.html;*.css;*.js
+Active=0
+SubDirectories=1
+WholeWordOnly=0
+RegularExpression=0
+SearchWhere=0
+Location=D:\FutbolWebApp\IdeSrc\dacus_FindInFiles.dsk
+[D:\FutbolWebApp\AppSrc]
+IsEnabled=1
+[D:\FutbolWebApp\DDSrc]
+IsEnabled=1
+[D:\FutbolWebApp\AppHtml]
+IsEnabled=1
