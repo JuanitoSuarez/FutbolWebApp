@@ -62,7 +62,22 @@ Object oZoomLiga is a cWebView
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "Equipos"
-        End_Object 
+        End_Object
+        
+        Object oVerEquiposBtn is a cWebButton //---
+            Set psCaption to "Ver Equipos de esta Liga"
+            Set piColumnSpan to 4
+            Set piColumnIndex to 0
+            
+            // Registra la ruta para que sepa a dónde ir
+            WebRegisterPath ntNavigateForward oSelectEquipo
+
+            // Al hacer clic, navega y DataFlex le dice automáticamente que viene de un padre
+            Procedure OnClick
+                Send NavigateForward of oSelectEquipo Self
+            End_Procedure
+        End_Object // ---
+        
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
