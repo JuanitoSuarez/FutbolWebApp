@@ -42,20 +42,26 @@ Object oSelectEntrenador is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        Set pbShowHeader to False
+        Set pbShowHeader to True
         Set piSortColumn to 0
 
-        Object oentrenadorNombre is a cWebColumn
-            Entry_Item entrenador.Nombre
-            Set psCaption to "entrenador.Nombre"
-            Set piWidth to 600
-        End_Object 
+       Object oentrenadorNombre is a cWebColumn
+    Entry_Item entrenador.Nombre
+    Set psCaption to "Nombre"        //
+    Set piWidth to 400
+End_Object 
 
-        Object oentrenadorApellido is a cWebColumn
-            Entry_Item entrenador.Apellido
-            Set psCaption to "entrenador.Apellido"
-            Set piWidth to 600
-        End_Object 
+Object oentrenadorApellido is a cWebColumn
+    Entry_Item entrenador.Apellido
+    Set psCaption to "Apellido"      //
+    Set piWidth to 400
+End_Object 
+
+Object oequipoNombre is a cWebColumn
+    Entry_Item equipo.Nombre
+    Set psCaption to "Equipo"        //
+    Set piWidth to 400
+End_Object
 
         Object oDetailButton is a cWebColumnButton
             Set psCaption to "btn"
@@ -96,8 +102,8 @@ Object oSelectEntrenador is a cWebView
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromMain)
-                    Send NavigateClose Self
-                    Case Break
+    Send NavigateForward of oZoomEntrenador Self  // ← cambiar NavigateClose por esto
+    Case Break
 
                 Case Else // must be nfUndefined
 

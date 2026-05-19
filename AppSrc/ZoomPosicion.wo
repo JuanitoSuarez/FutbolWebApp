@@ -8,11 +8,8 @@ Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
 
-Use cligaDataDictionary.dd
-Use cequipoDataDictionary.dd
-Use cjugadorDataDictionary.dd
+
 Use cposicionDataDictionary.dd
-Use cjugadorposicionDataDictionary.dd
 
 Object oZoomPosicion is a cWebView
     Set piColumnCount to 12
@@ -23,27 +20,11 @@ Object oZoomPosicion is a cWebView
     Set Verify_Save_Msg to 0
     Set piMaxWidth to 1024
 
-    Object oliga_DD is a cligaDataDictionary
-    End_Object 
-
-    Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
-    End_Object 
-
-    Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server To oequipo_DD
-    End_Object 
-
     Object oposicion_DD is a cposicionDataDictionary
     End_Object 
 
-    Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
-        Set DDO_Server To ojugador_DD
-        Set DDO_Server To oposicion_DD
-    End_Object 
-
-    Set Main_DD To ojugadorposicion_DD
-    Set Server  To ojugadorposicion_DD
+    Set Main_DD to oposicion_DD
+    Set Server  to oposicion_DD
 
 
     Object oWebMainPanel is a cWebPanel

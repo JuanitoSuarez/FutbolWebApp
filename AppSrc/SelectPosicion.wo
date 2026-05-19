@@ -10,11 +10,8 @@ Use cWebColumnButton.pkg
 Use cWebColumn.pkg
 Use ZoomPosicion.wo
 
-Use cligaDataDictionary.dd
-Use cequipoDataDictionary.dd
-Use cjugadorDataDictionary.dd
+
 Use cposicionDataDictionary.dd
-Use cjugadorposicionDataDictionary.dd
 
 Object oSelectPosicion is a cWebView
     Set psCaption to "Posicion"
@@ -24,27 +21,13 @@ Object oSelectPosicion is a cWebView
     Set pbShowCaption to False
     Set piMaxWidth to 1024
 
-    Object oliga_DD is a cligaDataDictionary
-    End_Object 
-
-    Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
-    End_Object 
-
-   Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server to oequipo_DD
-    End_Object
 
     Object oposicion_DD is a cposicionDataDictionary
     End_Object
 
-    Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
-        Set DDO_Server To ojugador_DD
-        Set DDO_Server To oposicion_DD
-    End_Object 
 
-    Set Main_DD To ojugadorposicion_DD
-    Set Server  To ojugadorposicion_DD
+   Set Main_DD to oposicion_DD   // ← cambia esto
+Set Server  to oposicion_DD   // ← y esto
 
 
     Object oList is a cWebList
@@ -52,7 +35,7 @@ Object oSelectPosicion is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        Set pbShowHeader to False
+        Set pbShowHeader to True
         Set piSortColumn to 0
 
         Object oposicionNombre is a cWebColumn
@@ -61,11 +44,7 @@ Object oSelectPosicion is a cWebView
             Set piWidth to 600
         End_Object 
         
-          Object oposicionID is a cWebColumn
-            Entry_Item posicion.ID
-            Set psCaption to "posicion.ID"
-            Set piWidth to 600
-        End_Object 
+      
 
 /**Object ojpID is a cWebColumn
             Entry_Item jugadorposicion.PosicionID

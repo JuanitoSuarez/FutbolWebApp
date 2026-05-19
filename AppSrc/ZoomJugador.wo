@@ -14,6 +14,8 @@ Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 Use cjugadorDataDictionary.dd
 
+Use SelectJugador.wo //
+
 Object oZoomJugador is a cWebView
     Set piColumnCount to 12
     Set psCaption to "Jugador"
@@ -27,15 +29,15 @@ Object oZoomJugador is a cWebView
     End_Object 
 
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
+        Set DDO_Server to oliga_DD
     End_Object 
 
     Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server To oequipo_DD
+        Set DDO_Server to oequipo_DD
     End_Object 
 
-    Set Main_DD To ojugador_DD
-    Set Server  To ojugador_DD
+    Set Main_DD to ojugador_DD
+    Set Server  to ojugador_DD
 
 
     Object oWebMainPanel is a cWebPanel
@@ -77,36 +79,26 @@ Object oZoomJugador is a cWebView
                 End_Object 
 
                 Object oequipoID is a cWebForm
-                    Entry_Item jugador.EquipoID
-                    Set piColumnSpan to 2
-                    Set piColumnIndex to 0
-                    Set peLabelPosition to lpTop
-                    Set psLabel to "ID Equipo"
-                    Set pbPromptButton to True
-
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//                    WebRegisterPath ntNavigateForward oSelectView
-
-                    Procedure OnPrompt
-                        Send NavigatePath
-                    End_Procedure
-                End_Object 
+    Entry_Item jugador.EquipoID
+    Set piColumnSpan to 2
+    Set piColumnIndex to 0
+    Set peLabelPosition to lpTop
+    Set psLabel to "ID Equipo"
+    Set pbPromptButton to True
+    WebRegisterPath ntNavigateForward oSelectEquipo  //
+    Procedure OnPrompt
+        Send NavigatePath
+    End_Procedure
+End_Object
 
                 Object oequipoNombre is a cWebForm
-                    Entry_Item equipo.Nombre
-                    Set piColumnSpan to 12
-                    Set piColumnIndex to 0
-                    Set peLabelPosition to lpTop
-                    Set psLabel to "Club"
-                    Set pbPromptButton to True
-
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//                    WebRegisterPath ntNavigateForward oSelectView
-
-                    Procedure OnPrompt
-                        Send NavigatePath
-                    End_Procedure
-                End_Object 
+    Entry_Item equipo.Nombre
+    Set piColumnSpan to 12
+    Set piColumnIndex to 0
+    Set peLabelPosition to lpTop
+    Set psLabel to "Club"
+    // 
+End_Object 
             End_Object 
         End_Object 
     End_Object 

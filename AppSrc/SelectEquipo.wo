@@ -100,8 +100,8 @@ Object oSelectEquipo is a cWebView
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromChild)
-                    Send NavigateClose Self
-                    Case Break
+    Send NavigateClose Self   //
+    Case Break
 
                 Case (NavigateData.eNavigateType = nfFromMain)
                     Send NavigateClose Self

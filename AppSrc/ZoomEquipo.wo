@@ -13,6 +13,8 @@ Use cWebTabPage.pkg
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 
+Use SelectLiga.wo //
+
 Object oZoomEquipo is a cWebView
     Set piColumnCount to 12
     Set psCaption to "Equipo"
@@ -56,52 +58,33 @@ Object oZoomEquipo is a cWebView
                 WebSetResponsive piColumnCount rmMobile to 4
 
                 Object oligaID is a cWebForm
-                    Entry_Item liga.ID
-                    Set piColumnSpan to 2
-                    Set piColumnIndex to 0
-                    Set peLabelPosition to lpTop
-                    Set psLabel to "ID"
-                    Set pbPromptButton to True
-
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//                    WebRegisterPath ntNavigateForward oSelectView
-
-                    Procedure OnPrompt
-                        Send NavigatePath
-                    End_Procedure
-                End_Object 
+    Entry_Item liga.ID
+    Set piColumnSpan to 2
+    Set piColumnIndex to 0
+    Set peLabelPosition to lpTop
+    Set psLabel to "ID Liga"
+    Set pbPromptButton to True
+    WebRegisterPath ntNavigateForward oSelectLiga   // ← descomenta y apunta a SelectLiga
+    Procedure OnPrompt
+        Send NavigatePath
+    End_Procedure
+End_Object
 
                 Object oligaNombre is a cWebForm
-                    Entry_Item liga.Nombre
-                    Set piColumnSpan to 12
-                    Set piColumnIndex to 0
-                    Set peLabelPosition to lpTop
-                    Set psLabel to "Nombre"
-                    Set pbPromptButton to True
+    Entry_Item liga.Nombre
+    Set piColumnSpan to 8
+    Set piColumnIndex to 2
+    Set peLabelPosition to lpTop
+    Set psLabel to "Nombre Liga"
+End_Object
 
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//                    WebRegisterPath ntNavigateForward oSelectView
-
-                    Procedure OnPrompt
-                        Send NavigatePath
-                    End_Procedure
-                End_Object 
-
-                Object oligaPais is a cWebForm
-                    Entry_Item liga.Pais
-                    Set piColumnSpan to 9
-                    Set piColumnIndex to 0
-                    Set peLabelPosition to lpTop
-                    Set psLabel to "Pais"
-                    Set pbPromptButton to True
-
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//                    WebRegisterPath ntNavigateForward oSelectView
-
-                    Procedure OnPrompt
-                        Send NavigatePath
-                    End_Procedure
-                End_Object 
+               Object oligaPais is a cWebForm
+    Entry_Item liga.Pais
+    Set piColumnSpan to 6
+    Set piColumnIndex to 0
+    Set peLabelPosition to lpTop
+    Set psLabel to "País"
+End_Object
             End_Object 
         End_Object 
     End_Object 
