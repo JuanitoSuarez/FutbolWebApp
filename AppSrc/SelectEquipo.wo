@@ -9,6 +9,7 @@ Use cWebMenuItem.pkg
 Use cWebColumnButton.pkg
 Use cWebColumn.pkg
 Use ZoomEquipo.wo
+Use ZoomJugador.wo
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
@@ -88,7 +89,7 @@ Object oSelectEquipo is a cWebView
             Set pbNewLine to True
         End_Object 
 
-        WebRegisterPath ntNavigateForward oZoomEquipo
+        WebRegisterPath ntNavigateForward oZoomJugador // --
 
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
@@ -96,7 +97,7 @@ Object oSelectEquipo is a cWebView
 
             Case Begin
                 Case (NavigateData.eNavigateType = nfFromParent)
-                    Send NavigateForward of oZoomEquipo Self
+                    Send NavigateForward of oZoomJugador Self // --
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromChild)
@@ -108,7 +109,7 @@ Object oSelectEquipo is a cWebView
                     Case Break
 
                 Case Else // must be nfUndefined
-                    Send NavigateForward of oZoomEquipo Self
+                    Send NavigateForward of oZoomJugador Self // --
 
             Case End
         End_Procedure

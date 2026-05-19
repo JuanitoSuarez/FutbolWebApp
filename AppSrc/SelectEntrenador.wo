@@ -102,7 +102,7 @@ End_Object
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromMain)
-    Send NavigateForward of oZoomEntrenador Self  // ← cambiar NavigateClose por esto
+    Send NavigateForward of oZoomEntrenador Self  
     Case Break
 
                 Case Else // must be nfUndefined
@@ -111,10 +111,18 @@ End_Object
 
             Case End
         End_Procedure
-
-        Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
-            Move True to NavigateData.bReadOnly
+        
+        Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView  //
+            Forward Send OnGetNavigateForwardData (&NavigateData) hoToView
+            Send ShowInfoBox "Saliendo de la lista hacia la ficha del entrenador"
         End_Procedure
+
+
+        Procedure OnNavigateBack tWebNavigateData NavigateData Handle hoReturnedFromView  //
+            Forward Send OnNavigateBack NavigateData hoReturnedFromView
+            Send ShowInfoBox "De vuelta en la lista de entrenadores"
+        End_Procedure
+    
 
     End_Object 
 
@@ -171,6 +179,5 @@ End_Object
         Case End
 
     End_Procedure
-
 
 End_Object 

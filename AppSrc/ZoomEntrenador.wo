@@ -89,6 +89,8 @@ End_Object
             Procedure OnClick
                 Send Request_Save
             End_Procedure
+            
+            
 
         End_Object 
 
@@ -179,6 +181,18 @@ End_Object
 
         Send SetActionButtons
 
+    End_Procedure
+    
+    Procedure OnNavigateForward tWebNavigateData NavigateData Handle hoInvokingView Handle hoInvokingObject //
+        Forward Send OnNavigateForward NavigateData hoInvokingView hoInvokingObject
+        
+        Send ShowInfoBox "Llegando a la ficha del entrenador"
+    End_Procedure
+
+    Procedure OnGetNavigateBackData tWebNavigateData ByRef NavigateData Handle hoBackToView //
+        Forward Send OnGetNavigateBackData (&NavigateData) hoBackToView
+        
+        Send ShowInfoBox "Objeto invocado, el que genera la navegación de vuelta"
     End_Procedure
 
 End_Object 

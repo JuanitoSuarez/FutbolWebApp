@@ -10,6 +10,8 @@ Use cWebForm.pkg
 
 Use cligaDataDictionary.dd
 
+Use SelectEquipo.wo //
+
 Object oZoomLiga is a cWebView
     Set piColumnCount to 12
     Set psCaption to "Liga"

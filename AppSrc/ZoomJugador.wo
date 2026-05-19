@@ -50,6 +50,7 @@ Object oZoomJugador is a cWebView
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "Nombre"
+            
         End_Object 
 
         Object ojugadorApellido is a cWebForm
@@ -204,4 +205,22 @@ End_Object
 
     End_Procedure
 
+// llegada solo si venimos del select padre
+
+    Procedure OnNavigateForward tWebNavigateData NavigateData Handle hoInvokingView Handle hoInvokingObject
+        Forward Send OnNavigateForward NavigateData hoInvokingView hoInvokingObject
+        
+        If (NavigateData.eNavigateType = nfFromParent) Begin
+            Send ShowInfoBox "Llegando desde equipos"
+        End
+    End_Procedure
+
+// lo mismo para la vuelta
+    Procedure OnGetNavigateBackData tWebNavigateData ByRef NavigateData Handle hoBackToView
+        Forward Send OnGetNavigateBackData (&NavigateData) hoBackToView
+        
+        If (NavigateData.eNavigateType = nfFromParent) Begin
+            Send ShowInfoBox "Vuelta a los equipos. Hemos creado un nuevo jugador."
+        End
+    End_Procedure
 End_Object 
