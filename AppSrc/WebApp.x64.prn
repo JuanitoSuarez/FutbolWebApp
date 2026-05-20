@@ -1,5 +1,5 @@
 Compiling Program: D:\FutbolWebApp\AppSrc\WebApp.src
-Memory Available: 11455029248
+Memory Available: 10667044864
 1>Use AllWebAppClasses.pkg
 Using pre-compiled package ALLWEBAPPCLASSES.PKG
 Including file: AllWebAppClasses.x64.pkd    (C:\Program Files\DataFlex 25.0\Pkg\AllWebAppClasses.x64.pkd)
@@ -2133,7 +2133,7 @@ Including file: ZoomLiga.wo    (D:\FutbolWebApp\AppSrc\ZoomLiga.wo)
 37946>>>>>>>                    End_Procedure
 37947>>>>>>>
 37947>>>>>>>                    Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
-37950>>>>>>>                        Send ShowInfoBox "Maletas listas en Prompt || Buscando Liga en SelectLiga (nfFromChild)"
+37950>>>>>>>                        Send ShowInfoBox "maletas listas || buscando Liga en SelectLiga"
 37951>>>>>>>                        Move nfFromChild to NavigateData.eNavigateType
 37952>>>>>>>                    End_Procedure
 37953>>>>>>>                End_Object
@@ -2227,12 +2227,12 @@ Including file: ZoomLiga.wo    (D:\FutbolWebApp\AppSrc\ZoomLiga.wo)
 38036>>>>>>>    End_Procedure
 38037>>>>>>>
 38037>>>>>>>    Procedure OnViewSaved Handle hoServer Boolean bChanged
-38040>>>>>>>        Send ShowInfoBox "OnViewSaved || Cambios del equipo guardados, cerrando ZoomEquipo"
+38040>>>>>>>        Send ShowInfoBox "OnViewSaved || cambios del equipo guardados, cerrando ZoomEquipo"
 38041>>>>>>>        Send NavigateClose Self
 38042>>>>>>>    End_Procedure
 38043>>>>>>>
 38043>>>>>>>    Procedure OnViewDeleted Handle hoDDO
-38046>>>>>>>        Send ShowInfoBox "OnViewDeleted || Equipo eliminado, cerrando ZoomEquipo"
+38046>>>>>>>        Send ShowInfoBox "OnViewDeleted || equipo eliminado, cerrando ZoomEquipo"
 38047>>>>>>>        Send NavigateClose Self
 38048>>>>>>>    End_Procedure
 38049>>>>>>>
@@ -2241,19 +2241,19 @@ Including file: ZoomLiga.wo    (D:\FutbolWebApp\AppSrc\ZoomLiga.wo)
 38054>>>>>>>
 38054>>>>>>>        Case Begin
 38054>>>>>>>            Case (NavigateData.eNavigateType = nfFromMain)
-38056>>>>>>>                Send ShowInfoBox "Aterrizando en ZoomEquipo || Venimos desde vista principal (nfFromMain)"
+38056>>>>>>>                Send ShowInfoBox "aterrizando en ZoomEquipo || venimos desde vista principal (From Main)"
 38057>>>>>>>                Case Break
 38058>>>>>>>
 38058>>>>>>>            Case (NavigateData.eNavigateType = nfFromParent)
-38061>>>>>>>                Send ShowInfoBox "Aterrizando en ZoomEquipo || Venimos de SelectEquipo (nfFromParent)"
+38061>>>>>>>                Send ShowInfoBox "aterrizando en ZoomEquipo || venimos de SelectEquipo (From parent)"
 38062>>>>>>>                Case Break
 38063>>>>>>>
 38063>>>>>>>            Case (NavigateData.eNavigateType = nfFromChild)
-38066>>>>>>>                Send ShowInfoBox "Aterrizando en ZoomEquipo || Volvemos de un Zoom hijo (nfFromChild)"
+38066>>>>>>>                Send ShowInfoBox "aterrizando en ZoomEquipo || volvemos de un Zoom hijo (from child)"
 38067>>>>>>>                Case Break
 38068>>>>>>>
 38068>>>>>>>            Case Else // must be nfUndefined
-38068>>>>>>>                Send ShowInfoBox "Aterrizando en ZoomEquipo || Acceso directo (nfUndefined)"
+38068>>>>>>>                Send ShowInfoBox "aterrizando en ZoomEquipo || Acceso directo (undefined)"
 38069>>>>>>>        Case End
 38069>>>>>>>
 38069>>>>>>>        Send SetActionButtons
@@ -3622,7 +3622,7 @@ Including file: SelectPosicion.wo    (D:\FutbolWebApp\AppSrc\SelectPosicion.wo)
 39281>Send StartWebApp of oWebApp
 39282>
 Summary
-Memory Available: 11456888832
+Memory Available: 10830237696
 Total Warnings : 0
 Total Errors   : 0
 Total Symbols  : 25664
@@ -3630,6 +3630,6 @@ Total Resources: 0
 Total Commands : 39281
 Total Windows  : 0
 Total Pages    : 0
-Static Data    : 488193
+Static Data    : 488165
 Message area   : 264607
-Total Blocks   : 17436
+Total Blocks   : 17435
