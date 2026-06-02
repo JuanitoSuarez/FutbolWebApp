@@ -7,6 +7,7 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
+Use cWebButton.pkg
 Use cWebTabContainer.pkg
 Use cWebTabPage.pkg
 
@@ -14,7 +15,8 @@ Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 Use cjugadorDataDictionary.dd
 
-Use SelectJugador.wo //
+Use SelectJugador.wo
+Use SelectJugadorPosicion.wo
 
 Object oZoomJugador is a cWebView
     Set piColumnCount to 12
@@ -39,24 +41,22 @@ Object oZoomJugador is a cWebView
     Set Main_DD to ojugador_DD
     Set Server  to ojugador_DD
 
-
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
 
         Object ojugadorNombre is a cWebForm
             Entry_Item jugador.Nombre
-            Set piColumnSpan to 10
+            Set piColumnSpan to 5
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "Nombre"
-            
         End_Object 
 
         Object ojugadorApellido is a cWebForm
             Entry_Item jugador.Apellido
-            Set piColumnSpan to 10
-            Set piColumnIndex to 0
+            Set piColumnSpan to 5
+            Set piColumnIndex to 7
             Set peLabelPosition to lpTop
             Set psLabel to "Apellido"
         End_Object 
@@ -68,52 +68,68 @@ Object oZoomJugador is a cWebView
 
             Object oPage1 is a cWebTabPage
                 Set piColumnCount to 12
-                Set psCaption to "Equipos para los que juega"
+                Set psCaption to "Selección y Club"
                 WebSetResponsive piColumnCount rmMobile to 4
 
                 Object ojugadorNacionalidad is a cWebForm
                     Entry_Item jugador.Nacionalidad
-                    Set piColumnSpan to 8
+                    Set piColumnSpan to 5
                     Set piColumnIndex to 0
                     Set peLabelPosition to lpTop
                     Set psLabel to "Selección"
                 End_Object 
 
-                Object oequipoID is a cWebForm
-    Entry_Item jugador.EquipoID
-    Set piColumnSpan to 2
-    Set piColumnIndex to 0
-    Set peLabelPosition to lpTop
-    Set psLabel to "ID Equipo"
-    Set pbPromptButton to True
-    WebRegisterPath ntNavigateForward oSelectEquipo  //
-    Procedure OnPrompt
-        Send NavigatePath
-    End_Procedure
-End_Object
+                Object ojugadorEquipoID is a cWebForm
+                    Entry_Item jugador.EquipoID
+                    Set piColumnSpan to 2
+                    Set piColumnIndex to 0
+                    Set peLabelPosition to lpTop
+                    Set psLabel to "ID Club"
+                    Set pbPromptButton to True
+                    WebRegisterPath ntNavigateForward oSelectEquipo
+                    Procedure OnPrompt
+                        Send NavigatePath
+                    End_Procedure
+                End_Object
 
                 Object oequipoNombre is a cWebForm
-    Entry_Item equipo.Nombre
-    Set piColumnSpan to 12
-    Set piColumnIndex to 0
-    Set peLabelPosition to lpTop
-    Set psLabel to "Club"
-    // 
-End_Object 
+                    Entry_Item equipo.Nombre
+                    Set piColumnSpan to 5
+                    Set piColumnIndex to 0
+                    Set peLabelPosition to lpTop
+                    Set psLabel to "Club"
+                End_Object
+
+                Object oDespedirButton is a cWebButton
+                    Set piColumnSpan to 2
+                    Set piColumnIndex to 10
+                    Set psCaption to "Despedir"
+                    Procedure OnClick
+                        Send DespedirJugador
+                    End_Procedure
+                End_Object
+
             End_Object 
         End_Object 
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
 
+        Object oBackBtn is a cWebMenuItem
+            Set psCaption to "Back"
+            Set peActionDisplay to adBoth
+            Set psImage to "Images/back-green.svg"
+            Procedure OnClick
+                Send NavigateCancel Self
+            End_Procedure
+        End_Object
+
         Object oSaveBtn is a cWebMenuItem
             Set psCSSClass to "WebSaveMenuItem"
             Set psCaption to "Save"
-
             Procedure OnClick
                 Send Request_Save
             End_Procedure
-
         End_Object 
 
         Object oEditBtn is a cWebMenuItem
@@ -123,18 +139,15 @@ End_Object
                 Send ChangeEditMode True
                 Send SetActionButtons
             End_Procedure
-
         End_Object 
 
         Object oDeleteBtn is a cWebMenuItem
             Set psCSSClass to "WebDeleteMenuItem"
             Set psCaption to "Delete"
             Set peActionDisplay to adMenu
-
             Procedure OnClick
                 Send Request_Delete
             End_Procedure
-
         End_Object 
 
         Object oCancelChangesBtn is a cWebMenuItem
@@ -144,8 +157,26 @@ End_Object
             Procedure OnClick
                 Send RefreshRecord
             End_Procedure
+        End_Object
 
-        End_Object 
+        // ── Botón Editar Posiciones ───────────────────────
+        Object oPosicionesBtn is a cWebMenuItem
+            Set psCSSClass to "WebIcon_List"
+            Set psCaption to "Editar Posiciones"
+            Set peActionDisplay to adMenu
+
+            WebRegisterPath ntNavigateForward oSelectJugadorPosicion
+
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+
+            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                Move nfFromParent to NavigateData.eNavigateType
+            End_Procedure
+
+        End_Object
+
     End_Object 
 
     Procedure SetActionButtons
@@ -157,14 +188,16 @@ End_Object
         Get GetNavigateData to NavigateData
         Get HasRecord of hoDD to bHasRecord
 
-        // let's hide all buttons and then Show the ones we want
         WebSet pbRender of oEditBtn to False
         WebSet pbRender of oSaveBtn to False
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
+        WebSet pbRender of oDespedirButton to bHasRecord
+        WebSet pbRender of oPosicionesBtn to False
 
         If (NavigateData.bReadOnly) Begin
             WebSet pbRender of oEditBtn to True
+            WebSet pbRender of oPosicionesBtn to bHasRecord
         End
         Else Begin
             WebSet pbRender of oSaveBtn to True
@@ -173,12 +206,16 @@ End_Object
         End
     End_Procedure
 
+    Procedure DespedirJugador
+        Send ChangeEditMode True
+        Send Clear of oequipo_DD
+        Send SetActionButtons
+    End_Procedure
+
     Procedure OnViewSaved Handle hoServer Boolean bChanged
-        // Close after save
         Send NavigateClose Self
     End_Procedure
 
-    // this will close the view after a delete
     Procedure OnViewDeleted Handle hoDDO
         Send NavigateClose Self
     End_Procedure
@@ -186,41 +223,28 @@ End_Object
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
         Case Begin
             Case (NavigateData.eNavigateType = nfFromMain)
-                // If from main, this is a propbably a main file Select to Zoom.
                 Case Break
-
             Case (NavigateData.eNavigateType = nfFromParent)
-                // If from parent, this is a constrained drill down.
                 Case Break
-
             Case (NavigateData.eNavigateType = nfFromChild)
-                // If from child, this is a probably a parent Zoom from a Zoom.
                 Case Break
-
-            Case Else // must be nfUndefined
-
+            Case Else
         Case End
-
         Send SetActionButtons
-
     End_Procedure
-
-// llegada solo si venimos del select padre
 
     Procedure OnNavigateForward tWebNavigateData NavigateData Handle hoInvokingView Handle hoInvokingObject
         Forward Send OnNavigateForward NavigateData hoInvokingView hoInvokingObject
-        
         If (NavigateData.eNavigateType = nfFromParent) Begin
             Send ShowInfoBox "Llegando desde equipos"
         End
     End_Procedure
 
-// lo mismo para la vuelta
     Procedure OnGetNavigateBackData tWebNavigateData ByRef NavigateData Handle hoBackToView
         Forward Send OnGetNavigateBackData (&NavigateData) hoBackToView
-        
         If (NavigateData.eNavigateType = nfFromParent) Begin
             Send ShowInfoBox "Vuelta a los equipos. Hemos creado un nuevo jugador."
         End
     End_Procedure
-End_Object 
+
+End_Object
